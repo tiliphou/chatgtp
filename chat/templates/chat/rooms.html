@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Rooms | {% endblock %}
+
+{% block content %}
+<div class="page-title">
+    <h1>Rooms</h1>
+</div>
+<div class="container">
+    <form id="add-form" method="post">
+        {% csrf_token %}
+        <input type="text" placehlder="enter room name ..." id="room_name" />
+        <input id="create-room" type="submit"  value="Create new room">
+    </form>
+</div>
+<div id="chat-rooms">
+    {% for room in rooms %}
+        <div class="rooms1">
+            <div class="rooms2">
+                <h2>{{ room.name }}</h2>
+
+                <a href="{% url 'room' room.slug %}">Join</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script type="text/javascript">
+    $(document).on('submit','#add-form',function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: 'createroom/',
+            data: {
+                name: $('#room_name').val(),
+                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+            },
+            success: function(data) {
+                $( "#chat-rooms" ).load(window.location.href + " #chat-rooms" );
+            },
+        });
+    });
+</script>
+
+
+{% endblock %}

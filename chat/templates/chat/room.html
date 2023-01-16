@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ room.name }} | {% endblock %}
+
+{% block content %}
+
+<div class="page-title">
+    <h1>{{ room.name }}</h1>
+</div>
+
+<div class="block-message">
+    <div class="" style=" flex-direction:column-reverse;" id="chat-messages">
+        {% for m in messages %}<b>{{ m.user.username }}</b>: {{ m.content }}<br>{% endfor %}
+    </div>
+</div>
+
+<div class="message-typing">
+    <form id="post-form">
+        {% csrf_token %}
+        <input type="text" name="content" placeholder="Your message..." id="chat-message-input">
+        <input id="sendmessage" type="submit" value="Envoyer" />
+    </form>
+</div>
+<h2></h2>
+{% endblock %}
+
+
+
+{% block scripts %}
+{{ room.slug|json_script:"json-roomname" }}
+{{ request.user.username|json_script:"json-username" }}
+
+<script type="text/javascript">
+    const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+    const userName = JSON.parse(document.getElementById('json-username').textContent);
+    $(document).on('submit','#post-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '../' +roomName +'/sendmessage/',
+            data : {
+                content : $('#chat-message-input').val(),
+                room:roomName,
+                name:userName,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+            }
+        });
+        document.getElementById("post-form").reset();
+    });
+    
+
+    $(document).ready(function(){
+        setInterval(function(){
+            $( "#chat-messages" ).load(window.location.href + " #chat-messages" );
+        },500)
+        
+    })
+
+    // Add this below the function to trigger the scroll on load.
+    
+
+</script>
+{% endblock %}
