@@ -3,28 +3,27 @@
 {% block title %}{{ room.name }} | {% endblock %}
 
 {% block content %}
-
 <div class="page-title">
-    <h1>{{ room.name }}</h1>
+    <h1>Salon : {{ room.name }}</h1>
 </div>
-
-<div class="block-message">
-    <div class="" style=" flex-direction:column-reverse;" id="chat-messages">
-        {% for m in messages %}<b>{{ m.user.username }}</b>: {{ m.content }}<br>{% endfor %}
+    <div id="block-message" >
+        <div>
+            {% for m in messages %}
+                        <div id="message">
+                            <b>{{ m.user.username }}</b>: {{ m.content }}
+                        </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
 
-<div class="message-typing">
-    <form id="post-form">
-        {% csrf_token %}
-        <input type="text" name="content" placeholder="Your message..." id="chat-message-input">
-        <input id="sendmessage" type="submit" value="Envoyer" />
-    </form>
-</div>
-<h2></h2>
+    <div class="message-typing">
+        <form id="post-form">
+            {% csrf_token %}
+            <input type="text" name="content" placeholder="Your message..." id="chat-message-input">
+            <input id="sendmessage" type="submit" value="Envoyer" />
+        </form>
+    </div>
 {% endblock %}
-
-
 
 {% block scripts %}
 {{ room.slug|json_script:"json-roomname" }}
@@ -33,6 +32,9 @@
 <script type="text/javascript">
     const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
     const userName = JSON.parse(document.getElementById('json-username').textContent);
+    var num_msg = 0;
+
+
     $(document).on('submit','#post-form',function(e){
         e.preventDefault();
         $.ajax({
@@ -45,21 +47,28 @@
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             },
             success: function(data){
+                console.log(data);
             }
         });
         document.getElementById("post-form").reset();
     });
+
+    window.setInterval(function(data) {
+        $.ajax({
+                type: 'GET',
+                url : '../' + roomName + '/updatemessage/',
+                datatype: 'json',
+                success: function(data){
+                    if ( ((data.messages).length) != num_msg) {
+                        $( "#block-message" ).load(window.location.href + " #block-message" );
+                        var element = document.getElementById('block-message');
+                        element.scrollTop = element.scrollHeight;
+                        num_msg = data.messages.length;;
+                    }
+                }
+            })
+    }, 1000);
     
-
-    $(document).ready(function(){
-        setInterval(function(){
-            $( "#chat-messages" ).load(window.location.href + " #chat-messages" );
-        },500)
-        
-    })
-
-    // Add this below the function to trigger the scroll on load.
     
-
 </script>
 {% endblock %}

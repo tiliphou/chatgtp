@@ -9,8 +9,9 @@
 <div class="container">
     <form id="add-form" method="post">
         {% csrf_token %}
-        <input type="text" placehlder="enter room name ..." id="room_name" />
+        <input id="room_name" type="text" placeholder="Enter room name ..." />
         <input id="create-room" type="submit"  value="Create new room">
+        <input id="remove-room" type="submit"  value="remove room">
     </form>
 </div>
 <div id="chat-rooms">
@@ -18,28 +19,77 @@
         <div class="rooms1">
             <div class="rooms2">
                 <h2>{{ room.name }}</h2>
-
-                <a href="{% url 'room' room.slug %}">Join</a>
+                <a href="{% url 'room' room.slug %}" >Join</a>
             </div>
         </div>
     {% endfor %}
 </div>
+<div id="info">
+    <p>To remove a room, first enter the name of the room to delete</p> 
+</div>
 
+{% endblock %}
+
+{% block scripts %}
 <script type="text/javascript">
     $(document).on('submit','#add-form',function(e) {
         e.preventDefault();
+        let result = $('#room_name').val().includes(" ");
+        if (!(result)){
+            $.ajax({
+                type: 'POST',
+                url: 'createroom/',
+                data: {
+                    name: $('#room_name').val(),
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                },
+                success: function(data) {
+                    $( "#chat-rooms" ).load(window.location.href + " #chat-rooms" );
+                    
+    
+                },
+            });
+        }
+        else{
+            alert("Room name must be in one word");
+        }
+        document.getElementById("add-form").reset();
+        
+    });
+
+    $("#remove-room").on("click", function(e){
+        e.preventDefault();
+        var roomName = $("#room_name").val();
         $.ajax({
-            type: 'POST',
-            url: 'createroom/',
+            type: "POST",
+            url: "removeroom/" + $('#room_name').val() + '/',
             data: {
-                name: $('#room_name').val(),
-                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                name: roomName,
+                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
             },
             success: function(data) {
                 $( "#chat-rooms" ).load(window.location.href + " #chat-rooms" );
+                alert("Room " + roomName + " was removed");
             },
+            error: function(data) {
+                alert("An error occurred while removing the room. Please try again later.");
+            }
         });
     });
+
+    window.setInterval(function(data) {
+        $.ajax({
+                type: 'GET',
+                url : 'updatemessage/',
+                datatype: 'json',
+                success: function(data){
+                    if ( ((data.rooms).length) != num_msg) {
+                        $( "#chat-rooms" ).load(window.location.href + " #chat-rooms" );
+                        num_msg = data.messages.length;;
+                    }
+                }
+            })
+    }, 1000);
 </script>
 
 

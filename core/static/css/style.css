@@ -1,0 +1,480 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    min-height:100vh;
+    background:#0B494C;
+    background: linear-gradient(90deg, #0B494C 0%, #0863C8 50%, #FCB045 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+nav{
+    position:fixed;
+    top:0px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 1em 3em;
+    background:rgba(255, 255, 255, .3);
+}
+
+footer{
+    position:absolute;
+    width:100%;
+    height:50px;
+    background-color:black;
+    color:white;
+    display:flex;
+    text-align:center;
+    bottom:0px;
+    left:0;
+    right:0;
+}
+
+footer a{
+    text-decoration:none;
+    margin:auto;
+    color:white;
+}
+
+footer p{
+    margin:auto;
+    margin-left:2%;
+}
+
+.login-card{
+    width:450px;
+    margin-top:20%;
+    background:rgba(255, 255, 255, .5);
+    padding:4rem;
+    border-radius:10px;
+    position:relative;
+}
+
+.login-card::before{
+    content:'';
+    position:absolute;
+    background:rgba(255, 255, 255, .15);
+    border-radius:10px;
+    inset:0;
+    transform:rotate(-5deg);
+    z-index:-1;
+}
+
+.login-card p{
+    text-align:center;
+    font-size:14px;
+    opacity:.8;
+}
+
+.login-card #attention{
+    color:white;
+    background-color:black;
+}
+
+.login-card-logo{
+    margin-bottom: 2rem;
+}
+
+.login-card-logo img{
+    width:80px;
+    height:80px;
+}
+
+.login-card-logo, .login-card-title {
+    text-align:center;
+}
+
+.login-card-header{
+    margin-bottom:2rem;
+}
+
+.login-card-header h1 + p{
+    font-size:calc(1rem * .8);
+    opacity:.8;
+}
+
+#login-form{
+    display:flex;
+    flex-direction:column;
+    gap:1.5rem;
+}
+
+#login-form .form-item{
+    position:relative;
+}
+
+.login-card input[type="text"], .login-card input[type="password"]{
+    border:none;
+    outline:none;
+    background:rgba(255, 255, 255, .3);
+    padding:1rem 1.5rem;
+    border-radius:100px;
+    width:89%;
+    transition: background .5s;
+}
+
+.login-card input:focus{
+    background:white;
+}
+
+#login-form #login{
+    border:none;
+    outline:none;
+    background:black;
+    color:white;
+    padding:1rem;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    transition: background .5s
+}
+
+#login-form #login:hover{
+    background-color: rgba(0, 0, 0, .7);
+    cursor:grab;
+}
+
+
+
+
+
+
+
+#loop-back-link{
+    display:inline-block;
+    margin-left:10%;
+    background:black;
+    color:white;
+    padding:1rem;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    text-decoration:none;
+    transition: background .5s
+}
+
+#loop-back-link:hover{
+    background-color: rgba(0, 0, 0, .7);
+    cursor:pointer;
+}
+
+#button-div{
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#roomsnav{
+    display:inline-block;
+    margin:10px;
+    background:black;
+    color:white;
+    padding:1rem;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    text-decoration:none;
+    transition: background .5s
+}
+
+#roomsnav:hover{
+    background-color: rgba(0, 0, 0, .7);
+    cursor:pointer;
+}
+
+#logoutnav{
+    display:inline-block;
+    background:black;
+    color:white;
+    padding:1rem;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    text-decoration:none;
+    transition: background .5s
+}
+
+#logoutnav:hover{
+    background-color: rgba(0, 0, 0, .7);
+    cursor:pointer;
+}
+
+#loginnav{
+    position:fixed;
+    right:10%;
+    display:inline-block;
+    background:black;
+    color:white;
+    width:5%;
+    padding:1rem;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    text-decoration:none;
+    transition: background .5s
+}
+
+#loginnav:hover{
+    background-color: rgba(0, 0, 0, .7);
+    cursor:pointer;
+}
+
+#signupnav{
+    position:fixed;
+    right:2%;
+    display:inline-block;
+    background:black;
+    color:white;
+    width:5%;
+    padding:1rem;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    text-decoration:none;
+    transition: background .5s
+}
+
+#signupnav:hover{
+    background-color: rgba(0, 0, 0, .7);
+    cursor:pointer;
+}
+
+.page-title{
+    position:fixed;
+    margin:auto;
+    top:4%;
+    text-align:center;
+}
+
+.page-title h1 {
+    font-size: 50px;
+    color:white;
+}
+
+
+#login-form{
+    padding-inline: 2em;
+    margin-inline: auto;
+}
+
+#login-form label {
+    color:white;
+}
+
+#login-form div {
+    margin-bottom: 2em;
+}
+
+#login-form div input{
+   width:100%;
+   margin-top:1em;
+   padding:1em 2em;
+   border-radius: 10% / 25%;
+}
+
+#login-form .login-error{
+    padding:2em;
+    border-radius: 15%;
+    background-color: red ;
+    color:white;
+}
+
+#chat-rooms{
+    position:fixed;
+    top:28%;
+    width:100%;
+    display:inline-flex;
+}
+
+#chat-rooms a{
+    display:block;
+    background:black;
+    color:white;
+    padding:1em 2em;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    text-decoration:none;
+    transition: background .5s
+}
+
+#chat-rooms a:hover{
+    background-color: rgba(0, 0, 0, .7);
+    cursor:pointer;
+}
+
+.rooms1{
+    width:100%;
+    padding:1%;
+    margin:auto;
+}
+
+.rooms2{
+    padding:1em;
+    background:rgba(255, 255, 255, .6);
+    box-shadow:10px 5px 5px rgb(49, 48, 48);
+    border-radius: 5%/10%;
+    text-align: center;
+}
+
+.rooms2 h2{
+    margin-bottom: 1em;
+    font-size: x-large;
+    font-weight: 600;
+}
+
+.container{
+    display:inline-flex;
+    position:fixed;
+    bottom:10%;
+    width:75%;
+}
+
+.container input[type="text"]{
+    display:inline-block;
+    border:none;
+    outline:none;
+    background:rgba(255, 255, 255, .6);
+    margin:1.5%;
+    padding:1.5%;
+    font-size:larger;
+    border-radius:100px;
+    width:69%;
+    transition: background .5s;
+}
+
+.container input:focus{
+    background:white;
+}
+
+#add-form{
+    width:100%;
+    margin:auto;
+}
+
+#create-room{
+    border:none;
+    outline:none;
+    display:inline-block;
+    background:black;
+    color:white;
+    padding:1em 2em;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    transition: background .5s
+}
+
+#create-room:hover{
+    background-color: rgba(0, 0, 0, .7);
+    cursor:pointer;
+}
+
+#remove-room{
+    border:none;
+    outline:none;
+    display:inline-block;
+    background:rgb(234, 14, 14);
+    color:white;
+    padding:1em 2em;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    transition: background .5s
+}
+
+#remove-room:hover{
+    background-color: rgba(97, 6, 6, 0.7);
+    cursor:pointer;
+}
+
+#info{
+    position:fixed;
+    bottom:14%;
+    right:5%;
+}
+
+#info p{
+    color:white;
+}
+
+.block-message{
+    position:fixed;
+    width:50%;
+    height:48%;
+    padding:1%;
+    margin:auto;
+    display:flex;
+    background-color: white;
+    border-radius:5%/10%;
+}
+
+.message-typing{
+    position:fixed;
+    width:50%;
+    padding:1%;
+    margin:auto;
+    margin-top:35%;
+    display:flex;
+    align-items: center;
+    background-color: white;
+    border-radius:5%/30%;
+}
+
+.message-typing #chat-message-input{
+    border:none;
+    outline:none;
+    background:rgba(255, 255, 255, .3);
+    padding:1rem 1.5rem;
+    border-radius:100px;
+    width:80%;
+}
+
+.message-typing #sendmessage{
+    position:static;
+    margin-left:670px;
+    vertical-align:50%;
+    border:none;
+    outline:none;
+    background:black;
+    color:white;
+    padding:1rem;
+    border-radius:100px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+
+
+@media (min-width: 1024px) { 
+    
+    .page-title{
+        padding:5em;
+    }
+    .page-title h1 {
+        font-size: 50px;
+    }
+
+    #login-form{
+        width:25%;
+    }
+    #create-room{
+        width:20%;
+    }
+    #room_name{
+        width:25%;
+    }
+    .rooms1{
+        width:25%;
+    }
+
+
+}
+
