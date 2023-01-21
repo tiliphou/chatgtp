@@ -113,6 +113,7 @@ footer p{
     outline:none;
     background:rgba(255, 255, 255, .3);
     padding:1rem 1.5rem;
+    margin-left:-25%;
     border-radius:100px;
     width:89%;
     transition: background .5s;
